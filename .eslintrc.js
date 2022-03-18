@@ -14,7 +14,7 @@ module.exports = {
     'linebreak-style': ['error', 'windows'],
     'quotes': ['error', 'single'],
     'semi': ['error', 'never'],
-    'require-jsdoc': ['warn', {
+    'require-jsdoc': ['off', {
       'require': {
         'FunctionDeclaration': true,
         'MethodDefinition': false,
