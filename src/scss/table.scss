@@ -4,8 +4,7 @@
     right: 0;
     top:$header-height+$toolbar-height+$formula-height;
     overflow-x: auto;
-    height: 200px;
-
+    overflow-y: hidden;
     .row{
         display: flex;
         flex-direction: row;
