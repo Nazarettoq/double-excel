@@ -6,12 +6,14 @@
     overflow-x: auto;
     overflow-y: hidden;
     .row{
+        user-select:none;
         display: flex;
         flex-direction: row;
         min-height: 20px;
         height: $row-height;
     }
     .row-info{
+        position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -24,6 +26,8 @@
         display: flex;
     }
     .column{
+        user-select:none;
+        position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -39,7 +43,7 @@
         padding:5px;
         width: $cell-width;
         height: 100%;
-        border: 1px solid #e9eaeca8;
+        border: 1px solid #d1d4d8c3;
         border-top: none;
         border-left: none;
         outline: none;
@@ -50,4 +54,45 @@
             z-index: 2;
         }
     }
+    .row-resize, .col-resize{
+        
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        opacity: 0;
+        background: $border-focus-color;
+        &:hover,&:active{
+            opacity: 1;
+        } 
+    }
+    .row-resize{
+        left: 0;
+        height: 3px;
+        &:hover,&:active{
+            cursor:s-resize;
+            .row-pointer{
+                position: relative;
+                top:1px;
+                width: 100vw;
+                background: $border-focus-color;
+                height: 1px;
+            }
+        }
+    }
+    .col-resize{
+        top: 0;
+        width: 5px;
+        &:hover,&:active{
+            cursor:w-resize;
+           .col-pointer{
+               position: relative;
+               left: 2px;
+                width: 1px;
+                background: $border-focus-color;
+                height: 100vh;
+            }
+        }
+    }
+   
+    
 }

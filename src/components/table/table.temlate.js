@@ -5,18 +5,26 @@ const CODES={
 }
 
 const setRow=(index, content)=>{
-  return ` <div class="row">
-  <div class="row-info">${index ? index : ''}</div>
+  // eslint-disable-next-line max-len
+  const resize=index? '<div class="row-resize" data-resize="row"> <div class="row-pointer"></div></div>':''
+  return ` <div class="row"  data-type="resizable" data-row="${index}">
+  <div class="row-info">${index ? index : ''}
+  ${resize}
+  </div>
   <div class="row-data">${content}</div>
   </div>`
 }
-const setColumn=(col)=>{
+const setColumn=(col, index)=>{
   return `
-    <div class="column">${col}</div>
+  <div class="column" data-type="resizable" data-col="${index}">${col}
+    <div class="col-resize"  data-resize="col">
+     <div class="col-pointer"></div>
+    </div>
+  </div>  
     `
 }
-const setCell=()=>{
-  return `<div contenteditable="true" class="cell"></div>`
+const setCell=(col)=>{
+  return `<div contenteditable="true" class="cell" data-col="${col}"></div>`
 }
 const setColsData=(index)=>{
   return String.fromCodePoint(CODES.A+index)
@@ -27,14 +35,16 @@ export function createTable(rowCount=25) {
 
   const cols=new Array(colsCount).fill('')
     .map((_, index)=>setColsData(index))
-    .map((el)=>setColumn(el))
+    .map((el, index)=>setColumn(el, index))
     .join('')
 
   rows.push(setRow(null, cols))
 
-  const cells=new Array(colsCount).fill(setCell()).join('')
 
   for (let i=0; i<rowCount; i++) {
+    const cells=new Array(colsCount).fill('')
+      .map((_, index)=> setCell(index))
+      .join('')
     rows.push(setRow(i+1, cells))
   }
 
