@@ -1,0 +1,49 @@
+import {ExcelComponent} from '@core/ExcelComponent'
+import {createTable} from './table.temlate'
+import {$} from '@core/dom'
+
+
+export class Table extends ExcelComponent {
+  static className='excel__table'
+
+  constructor($root) {
+    super($root, {
+      name: 'Table',
+      listeners: ['mousedown'],
+    })
+    this.finalSize=0
+  }
+  toHTML() {
+    return createTable()
+  }
+
+  onMousedown(event) {
+    if (event.target.dataset.resize) {
+      const resizer=$(event.target)
+      const parent=resizer.parent('[data-type="resizable"]')
+      const currX=parent.getСoordinates()
+      const type=event.target.dataset.resize
+      const arrOfCells= this.$root
+        .findAll(`[data-col="${parent.data.col}"]`)
+      document.onmousemove=(e)=>{
+        if (type==='col') {
+          const delta= e.screenX-currX.right
+          this.finalSize=currX.width+delta+'px'
+          parent.css({width: this.finalSize})
+        } else {
+          const delta= e.pageY-currX.bottom
+          this.finalSize=currX.height+delta+'px'
+        }
+      }
+      document.onmouseup=( )=>{
+        if (type==='col') {
+          arrOfCells.forEach((el)=>el.style.width= this.finalSize)
+        } else {
+          parent.css({height: this.finalSize})
+        }
+        document.onmousemove=null
+      }
+    }
+  }
+}
+

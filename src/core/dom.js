@@ -7,6 +7,10 @@ class Dom {
     this.$el= isStr(selector)?
       document.querySelector(selector) : selector
   }
+
+  get data() {
+    return this.$el.dataset
+  }
   append(node) {
     if (node instanceof Dom) {
       node=node.$el
@@ -21,6 +25,19 @@ class Dom {
     this.html('')
     return this
   }
+  css(s={}) {
+    for (const key in s) {
+      if ( Object.prototype.hasOwnProperty.call(s, key)) {
+        this.$el.style[key]=s[key]
+      }
+    }
+  }
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector)
+  }
+  getСoordinates() {
+    return this.$el.getBoundingClientRect()
+  }
   on(eventType, callback) {
     this.$el.addEventListener(eventType, callback)
   }
@@ -33,6 +50,9 @@ class Dom {
       return this
     }
     return this.$el.outerHTML.trim()
+  }
+  parent(selector) {
+    return $(this.$el.closest(selector))
   }
 }
 export function $(selector) {
