@@ -23,10 +23,17 @@ const setColumn=(col, index)=>{
   </div>  
     `
 }
-const setCell=(col)=>{
-  return `<div contenteditable="true" class="cell" data-col="${col}"></div>`
+const setCell=(row)=>{
+  return function(_, col) {
+    return `<div 
+      contenteditable="true"
+      class="cell"
+      data-col="${col}"
+      data-id="${row}:${col}"
+    ></div>`
+  }
 }
-const setColsData=(index)=>{
+const setColsData=(_, index)=>{
   return String.fromCodePoint(CODES.A+index)
 }
 export function createTable(rowCount=25) {
@@ -34,18 +41,18 @@ export function createTable(rowCount=25) {
   const colsCount=CODES.Z-CODES.A+1
 
   const cols=new Array(colsCount).fill('')
-    .map((_, index)=>setColsData(index))
-    .map((el, index)=>setColumn(el, index))
+    .map(setColsData)
+    .map(setColumn)
     .join('')
 
   rows.push(setRow(null, cols))
 
 
-  for (let i=0; i<rowCount; i++) {
+  for (let row=0; row<rowCount; row++) {
     const cells=new Array(colsCount).fill('')
-      .map((_, index)=> setCell(index))
+      .map(setCell(row))
       .join('')
-    rows.push(setRow(i+1, cells))
+    rows.push(setRow(row+1, cells))
   }
 
   return rows.join('')

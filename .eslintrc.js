@@ -12,17 +12,21 @@ module.exports = {
   rules: {
     'indent': ['error', 2],
     'linebreak-style': ['error', 'windows'],
-    'quotes': ['off'],
+    'quotes': 'off',
     'semi': ['error', 'never'],
     'no-debugger': 'off',
-    'require-jsdoc': ['off', {
-      'require': {
-        'FunctionDeclaration': true,
-        'MethodDefinition': false,
-        'ClassDeclaration': false,
-        'ArrowFunctionExpression': false,
-        'FunctionExpression': false,
+    'object-curly-spacing': 'off',
+    'require-jsdoc': [
+      'off',
+      {
+        require: {
+          FunctionDeclaration: true,
+          MethodDefinition: false,
+          ClassDeclaration: false,
+          ArrowFunctionExpression: false,
+          FunctionExpression: false,
+        },
       },
-    }],
+    ],
   },
 }
