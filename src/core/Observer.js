@@ -2,7 +2,7 @@ export class Observer {
   constructor() {
     this.listeners = {}
   }
-  dispatch(event, payload) {
+  emit(event, payload) {
     if (!Array.isArray(this.listeners[event])) {
       return false
     }

@@ -29,7 +29,12 @@ class Dom {
       this.$el.appendChild(node)
     }
   }
-
+  getStyles(styles=[]) {
+    return styles.reduce((res, s)=>{
+      res[s]=this.$el.style[s]
+      return res
+    }, {})
+  }
   clear() {
     this.html('')
     return this
@@ -66,6 +71,13 @@ class Dom {
   getСoordinates() {
     return this.$el.getBoundingClientRect()
   }
+  attr(name, value) {
+    if (value) {
+      this.$el.setAttribute(name, value)
+      return this
+    }
+    return this.$el.getAttribute(name)
+  }
   on(eventType, callback) {
     this.$el.addEventListener(eventType, callback)
   }
@@ -73,7 +85,7 @@ class Dom {
     this.$el.removeEventListener(eventType, callback)
   }
   text(text) {
-    if (isStr(text)) {
+    if (typeof text != 'undefined') {
       this.$el.textContent=text
       return this
     }
