@@ -18,3 +18,34 @@ export function setPonterToEnd(elem) {
   sel.selectAllChildren(elem)
   sel.collapseToEnd()
 }
+export function storage(key, data=null) {
+  if (!data) {
+    return JSON.parse(localStorage.getItem(key))
+  }
+  localStorage.setItem(key, JSON.stringify(data))
+}
+export function isEqual(a, b) {
+  if (typeof a==='object' && typeof b==='object') {
+    return JSON.stringify(a)===JSON.stringify(b)
+  }
+  return a===b
+}
+export function camleToDashCase(str) {
+  return str.replace(/[A-Z]/g, (m) => "-" + m.toLowerCase())
+}
+export function toInlineStyles(styles={}) {
+  return Object.keys(styles)
+    .map((key)=>`${camleToDashCase(key)}:${styles[key]}`).join(';')
+}
+
+export function debounce(func, timeout) {
+  let timer
+  return function(...args) {
+    const wait=()=>{
+      clearTimeout(timer)
+      func(...args)
+    }
+    clearTimeout(timer)
+    timer=setTimeout(wait, timeout)
+  }
+}

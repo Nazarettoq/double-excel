@@ -7,6 +7,7 @@ export class Formula extends ExcelComponent {
     super($root, {
       name: 'Formual',
       listeners: ['input', 'keydown'],
+      subscribe: ['currentText'],
       ...options,
 
     })
@@ -22,21 +23,21 @@ export class Formula extends ExcelComponent {
     super.init()
     this.formula=this.$root.findEl('#formula')
     this.$on('Table:select', (cell)=>{
-      this.formula.text(cell.text())
+      this.formula.text(cell.data.value)
     })
-    this.$on('Table:input', (cell)=>{
-      this.formula.text(cell.text())
-    })
+  }
+  storeChanged({currentText}) {
+    this.formula.text(currentText)
   }
   onInput(event) {
     const text=$(event.target).text()
-    this.$dispatch('Formula:input', text)
+    this.$emit('Formula:input', text)
   }
   onKeydown(event) {
     const keys=['Enter', 'Tab']
     if (keys.includes(event.key)) {
       event.preventDefault()
-      this.$dispatch('Formula:enter')
+      this.$emit('Formula:enter')
     }
   }
 }
