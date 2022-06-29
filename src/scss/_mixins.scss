@@ -22,7 +22,8 @@
    
   }
 @mixin clear-list() {
-  padding: 0;
+  padding-left: 10%;
+  padding-right: 10%;
   margin: 0;
   list-style: none;
   

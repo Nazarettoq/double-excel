@@ -63,7 +63,11 @@
     &__list {
       @include clear-list;
     }
-  
+  &__no-data{
+    padding-top: 10%;
+    font-size: 1.2rem;
+    text-align: center;
+  }
     &__record {
       display: flex;
       justify-content: space-between;

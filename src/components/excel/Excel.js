@@ -1,10 +1,11 @@
 import {$} from '@core/dom'
 import { Observer } from '@core/Observer'
 import { StoreSubscriber } from '@/redux/StoreSubscriber'
+import * as actions from '@/redux/actionCreators'
+import { preventDefault } from '@/core/utils'
 
 export class Excel {
-  constructor(selector, options) {
-    this.$el=$(selector)
+  constructor( options) {
     this.components=options.components || []
     this.observer= new Observer()
     this.store=options.store
@@ -26,8 +27,11 @@ export class Excel {
     })
     return $root
   }
-  render() {
-    this.$el.append(this.getRoot())
+  init() {
+    if (process.env.NODE_ENV==='production') {
+      document.addEventListener('contextmenu', preventDefault)
+    }
+    this.store.dispatch(actions.lastTimeOpenedAC())
     this.subscriber.subscribeComponents(this.components)
     this.components.forEach((component) => {
       component.init()
@@ -35,6 +39,7 @@ export class Excel {
   }
   destroy() {
     this.subscriber.unSubscribeFromStore()
+    document.removeEventListener('contextmenu', preventDefault)
     this.components.forEach((component)=>component.destroy())
   }
 }
