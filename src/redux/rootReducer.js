@@ -1,6 +1,6 @@
 import { CURRENT_STYLE, CHANGE_TEXT, TABLE_RESIZE,
   APPLY_STYLE,
-  CHANGE_TABLE_NAME} from "./types"
+  CHANGE_TABLE_NAME, LAST_TIME_OPENED} from "./types"
 
 export function rootReducer(state, action) {
   let field
@@ -26,6 +26,8 @@ export function rootReducer(state, action) {
       currentStyles: {...state.currentStyles, ...action.data.value}}
   case CHANGE_TABLE_NAME:
     return {...state, tableName: action.data}
+  case LAST_TIME_OPENED:
+    return {...state, lastTimeOpened: new Date().toJSON()}
   default:
     return state
   }

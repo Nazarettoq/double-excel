@@ -4,3 +4,4 @@ export const defaultStyles={
   textDecoration: 'none',
   fontStyle: 'normal',
 }
+export const newTable='New table'

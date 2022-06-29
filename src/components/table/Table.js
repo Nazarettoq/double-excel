@@ -50,7 +50,6 @@ export class Table extends ExcelComponent {
     this.selection.selectOne($cell)
     this.$emit('Table:select', $cell)
     const styles=$cell.getStyles(Object.keys(defaultStyles))
-    console.log(styles)
     this.$dispatch(actions.changeStylesAC(styles))
   }
   onKeydown(event) {

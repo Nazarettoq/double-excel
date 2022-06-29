@@ -1,5 +1,5 @@
 import {CHANGE_TEXT, TABLE_RESIZE, APPLY_STYLE, CURRENT_STYLE,
-  CHANGE_TABLE_NAME } from "./types"
+  CHANGE_TABLE_NAME, LAST_TIME_OPENED} from "./types"
 
 export function tableResizeAC(data) {
   return {
@@ -23,9 +23,14 @@ export function changeStylesAC(data) {
     data,
   }
 }
-export function changeTableName(data) {
+export function changeTableNameAC(data) {
   return {
     type: CHANGE_TABLE_NAME,
     data,
+  }
+}
+export function lastTimeOpenedAC() {
+  return {
+    type: LAST_TIME_OPENED,
   }
 }
