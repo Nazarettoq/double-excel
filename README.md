@@ -1,7 +1,7 @@
 # Double Excel
 Link: https://nazarettoq.github.io/double-excel/
 
-Spreadsheet implemented with pure JavaScript webpack. Assistive technology are webpack and eslint
+Spreadsheet implemented with pure JavaScript.
 
 In the current version, it is possible to, change the table using some styles and save it.
 Elementary mathematical transformations are also implemented using "=".
